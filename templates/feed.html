@@ -1,0 +1,51 @@
+<html>
+
+<head></head>
+
+<body> 
+    <iframe id="videoFeed" src='/video_feed' style="width: 100%; height: 90%; border: none;"></iframe> 
+    <img id="capturedImage" />
+    <div>
+        <button type="button" id="capture">Capture & Try</button>
+        <span id="product"></span>
+    </div>
+
+    <div style="margin-top: 20px;">
+    <button id="stop-webcam">Stop Webcam</button>
+     </div>
+</body> 
+<script> 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get("pid")
+    // document.getElementById("product").innerHTML = id
+    const button = document.getElementById("capture");
+    button.addEventListener("click", () => {
+        fetch('/capture_image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'tx': 0,
+                'ty': 0,
+                'product': id
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.output_path) {
+                    const capturedImage = document.getElementById("capturedImage")
+                    capturedImage.src = data.output_path;
+                    document.getElementById("videoFeed").remove()
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+    })
+</script>
+
+</html>

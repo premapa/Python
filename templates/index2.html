@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tuni Store</title>
+
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <span style="color: pink">T</span>un<span style="color: pink">i </span
+        ><span style="color: rgb(255, 0, 102)">S</span>tore
+      </h1>
+    </header>
+    <main>
+      <section id="tshirts">
+        <h2>T-shirts</h2>
+        <div class="product-grid">
+          {% for image in local_images %}
+          <div class="product">
+            <img class="product-image" src="/fetch_image?path={{ image }}" alt="T-shirt 1" />
+            <div class="button-container">
+              <button class="try-on">Try on</button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section id="result">
+        <h2>Result</h2>
+        <img id="result-img" src="" alt="Try on Result" />
+      </section>
+
+      <div class="main-container" style="display: none">
+        <div class="left-pane" style="width: 48%; padding: 5px">
+          <h2>Cam Feed</h2>
+          <iframe
+            id="videoFeed"
+            style="width: 100%; height: 100%; border: none"
+          ></iframe>
+        </div>
+        <div class="right-pane" style="width: 48%; padding: 5px">
+          <h2>Captured Image</h2>
+          <img
+            id="capturedImage"
+            src=""
+            alt="Captured Image"
+            style="width: 100%; height: 100%; object-fit: contain"
+          />
+        </div>
+
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Tuni Store. All rights reserved.</p>
+    </footer>
+  </body>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</html>
