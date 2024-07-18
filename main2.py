@@ -25,13 +25,6 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 
-
-
-
-
-
-
-
 def process_frame(frame, tx=0, ty=0):
     # Example: Apply some processing to the frame (replace with your processing logic)
     return frame
